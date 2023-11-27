@@ -247,7 +247,28 @@ public class Main {
 
         System.out.println(map);
         map.entrySet().forEach(System.out::println);
-        System.out.println("======");
 
+        // 10. Extra: Подсчитать частоту появления слов в тексте и вывести 10 наиболее часто встречающихся слов.
+        // При сортировке слова с одинаковой частотой, сортировать в лексикографическом порядке.
+        System.out.println("10. ======");
+
+        String text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales consectetur purus at faucibus. Donec mi quam, tempor vel ipsum non, faucibus suscipit massa. Morbi lacinia velit blandit tincidunt efficitur. Vestibulum eget metus imperdiet sapien laoreet faucibus. Nunc eget vehicula mauris, ac auctor lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel odio nec mi tempor dignissim.";
+
+        Stream<String> streamStr = Stream.of(text.trim().toLowerCase().split("[^a-zA-Zа-яА-Я0-9']+"));
+//        streamStr.forEach(System.out::println);
+
+        streamStr.collect(Collectors.toMap(p -> p, p -> 1, Integer::sum))
+                .entrySet()
+                .stream()
+//                .sorted((x , y) -> -x.getValue().compareTo(y.getValue()))
+//                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted((x, y) ->
+                        x.getValue().equals(y.getValue()) ?
+                                x.getKey().compareTo(y.getKey()) :
+                                -x.getValue().compareTo(y.getValue()))
+                .limit(10)
+                .forEach(p -> System.out.println(p.getKey()));
+
+        System.out.println("======");
     }
 }

@@ -215,10 +215,8 @@ public class Main {
         // res: 0 -> 1, 1 -> 1, 2 -> 1, 3 -> 2, 4 -> 2
 
         Map<Integer, List<Integer>> mapp = new HashMap<>();
-
         mapp.put(1, List.of(0, 1, 2));
         mapp.put(2, List.of(3, 4));
-
         System.out.println(mapp);
 
         var resMap = mapp.entrySet().stream()
